@@ -1,31 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-
 void main() {
   runApp(new MyApp());
 }
 
-enum TYPE {
-  umatan,
-  umaren,
-  wide,
-  renpuku3,
-  rentan3,
-  win5
-}
+enum TYPE { umatan, umaren, wide, renpuku3, rentan3, win5 }
 
-enum METHOD {
-  nagashi,
-  box,
-  formation
-}
+enum METHOD { nagashi, box, formation }
 
-enum NAGASHI {
-  ax1,
-  ax2,
-  multi
-}
+enum NAGASHI { ax1, ax2, multi }
 
 enum ORDER {
   first,
@@ -39,21 +23,19 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp( 
+    return MaterialApp(
         theme: ThemeData(
           brightness: Brightness.light,
         ),
-      home: Home()
-    );
+        home: Home());
   }
 }
 
 class Home extends StatefulWidget {
-    _Home createState() => _Home();
+  _Home createState() => _Home();
 }
 
 class _Home extends State<Home> {
-
   int _result = 0;
 
   // void calc(Enum order, int num) {
@@ -64,7 +46,7 @@ class _Home extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-  final size = MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
     //final padding = MediaQuery.of(context).padding;
     //var maxHeight = size.height - padding.top - padding.bottom;
 
@@ -89,8 +71,8 @@ class _Home extends State<Home> {
 
     return Scaffold(
       appBar: AppBar(
-          backgroundColor: Colors.white.withOpacity(0.0),
-          elevation: 0.0,
+        backgroundColor: Colors.white.withOpacity(0.0),
+        elevation: 0.0,
       ),
       extendBodyBehindAppBar: true,
       body: Container(
@@ -100,24 +82,24 @@ class _Home extends State<Home> {
             Caption(context, '組み合わせ'),
             Expanded(
               flex: 1,
-              child:Container(
+              child: Container(
                 alignment: Alignment.bottomRight,
                 //decoration: BoxDecoration(border: Border.all(color: Colors.blue)),
                 width: size.width,
                 //height: resultAreaHeight,
-               child: Text(
-                 '$_result',
-                 style: Theme.of(context).textTheme.headline2, 
-               ),
- 
+                child: Text(
+                  '$_result',
+                  style: Theme.of(context).textTheme.headline2,
+                ),
+
                 // child: TextFormField(
-                //   style: Theme.of(context).textTheme.headline2, 
+                //   style: Theme.of(context).textTheme.headline2,
                 //   textAlign: TextAlign.right,
                 //   controller: _categoryNameController,
                 //   decoration: InputDecoration(
                 //     border: InputBorder.none,
                 //      filled: true,
-                //      enabled: false, 
+                //      enabled: false,
                 //      //fillColor: const Color(0xff005dff),
                 //     //hintText: '0',
                 //       suffixIcon: IconButton(
@@ -129,14 +111,12 @@ class _Home extends State<Home> {
                 //   ),
               ),
             ),
-          
             Expanded(
-              flex: 2,
-              child:Container(
-                //decoration: BoxDecoration(border: Border.all(color: Colors.blue)),
-                width: size.width,
-                child:Column(
-                  children: <Widget>[
+                flex: 2,
+                child: Container(
+                  //decoration: BoxDecoration(border: Border.all(color: Colors.blue)),
+                  width: size.width,
+                  child: Column(children: <Widget>[
                     Caption(context, '式別'),
                     Row(
                       children: <Widget>[
@@ -169,32 +149,28 @@ class _Home extends State<Home> {
                         Spacer()
                       ],
                     ),
-                    ] 
-                  ),
-              )
-            ),
+                  ]),
+                )),
             Expanded(
               flex: 5,
-              child:Container(
-                //decoration: BoxDecoration(border: Border.all(color: Colors.blue)),
-                width: size.width,
-                //height: orderAreaHeight,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
-                    Caption(context, '1着'),
-                    NumberButtons(context, ORDER.first),
-                    Caption(context, '2着'),
-                    NumberButtons(context, ORDER.second),
-                    Caption(context, '3着'),
-                    NumberButtons(context, ORDER.third),
-                    //Caption(context, '4着'),
-                    //NumberButtons(context, ORDER.fourth),
-                    //Caption(context, '5着'),
-                    //NumberButtons(context, ORDER.fifth),
-                  ]
-                )
-              ),
+              child: Container(
+                  //decoration: BoxDecoration(border: Border.all(color: Colors.blue)),
+                  width: size.width,
+                  //height: orderAreaHeight,
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        Caption(context, '1着'),
+                        NumberButtons(context, ORDER.first),
+                        Caption(context, '2着'),
+                        NumberButtons(context, ORDER.second),
+                        Caption(context, '3着'),
+                        NumberButtons(context, ORDER.third),
+                        //Caption(context, '4着'),
+                        //NumberButtons(context, ORDER.fourth),
+                        //Caption(context, '5着'),
+                        //NumberButtons(context, ORDER.fifth),
+                      ])),
             )
           ],
         ),
@@ -205,61 +181,56 @@ class _Home extends State<Home> {
 
 class Caption extends Container {
   Caption(BuildContext context, String caption)
-  :super(
-      width: double.infinity,
-      child:Text(caption, textAlign: TextAlign.left, style: Theme.of(context).textTheme.caption)
-    );
+      : super(
+            width: double.infinity,
+            child: Text(caption,
+                textAlign: TextAlign.left,
+                style: Theme.of(context).textTheme.caption));
 }
 
 class InputButton extends Expanded {
   InputButton(BuildContext context, String caption, Enum val)
-  :super(
-    child:Container(
-      margin: EdgeInsets.all(2),
-        child: ElevatedButton(
-          style: ButtonStyle(
-            padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.fromLTRB(0, 0, 0, 0)),
-            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-            backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
-          ),
-          onPressed: ()=>input(val),
-            child:Text(
-            caption,
-            style: Theme.of(context).textTheme.headline6,
-            //style:TextStyle(fontSize: 20, ),
-            // strutStyle: StrutStyle(
-            //   fontSize: 20.0,
-            //   height: 1.6,
-            // )
-            //style: Theme.of(context).textTheme.caption,
-          ),
-        )
-    )
-  );
+      : super(
+            child: Container(
+                margin: EdgeInsets.all(2),
+                child: ElevatedButton(
+                  style: ButtonStyle(
+                    padding: MaterialStateProperty.all<EdgeInsets>(
+                        EdgeInsets.fromLTRB(0, 0, 0, 0)),
+                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    backgroundColor:
+                        MaterialStateProperty.all<Color>(Colors.blue),
+                  ),
+                  onPressed: () => input(val),
+                  child: Text(
+                    caption,
+                    style: Theme.of(context).textTheme.headline6,
+                    //style:TextStyle(fontSize: 20, ),
+                    // strutStyle: StrutStyle(
+                    //   fontSize: 20.0,
+                    //   height: 1.6,
+                    // )
+                    //style: Theme.of(context).textTheme.caption,
+                  ),
+                )));
 }
 
 class NumberButtons extends Column {
   NumberButtons(BuildContext context, Enum order)
-  :super(
-  children: <Widget>[
-      Row(
-    		children: <Widget>[
-          for (int i = 1; i < 10; i++)
-          Expanded(
-            child:NumberButton(context, order, i)
+      : super(children: <Widget>[
+          Row(
+            children: <Widget>[
+              for (int i = 1; i < 10; i++)
+                Expanded(child: NumberButton(context, order, i))
+            ],
+          ),
+          Row(
+            children: <Widget>[
+              for (int i = 10; i < 19; i++)
+                Expanded(child: NumberButton(context, order, i))
+            ],
           )
-        ],
-      ),
-      Row(
-    		children: <Widget>[
-          for (int i = 10; i < 19; i++)
-          Expanded(
-            child:NumberButton(context, order, i)
-          )
-        ],
-      )
-    ]
-  );
+        ]);
 }
 
 // class NumberButton2 extends Container {
@@ -268,7 +239,7 @@ class NumberButtons extends Column {
 // 		margin: EdgeInsets.all(2),
 // 		decoration: BoxDecoration(
 // 			borderRadius: BorderRadius.circular(5),
-// 			color: Colors.grey[600], 
+// 			color: Colors.grey[600],
 // 			//border: Border.all(color: Colors.blue)
 //     ),
 // 		child: Center(
@@ -282,23 +253,23 @@ class NumberButtons extends Column {
 
 class NumberButton extends Container {
   NumberButton(BuildContext context, Enum order, int number)
-	:super(
-    margin: EdgeInsets.all(2),
-      child: ElevatedButton(
-        style: ButtonStyle(
-          padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.fromLTRB(0, 0, 0, 0)),
-          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-          backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
-        ),
-        onPressed: ()=>calc(order, number),
-          child:Text(
-            '$number',
-            //style:TextStyle(fontSize: 20, backgroundColor: Colors.black),
-            //style:TextStyle(fontSize: 20),
-            style: Theme.of(context).textTheme.headline6,
-          ),
-      )
-  );
+      : super(
+            margin: EdgeInsets.all(2),
+            child: ElevatedButton(
+              style: ButtonStyle(
+                padding: MaterialStateProperty.all<EdgeInsets>(
+                    EdgeInsets.fromLTRB(0, 0, 0, 0)),
+                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+              ),
+              onPressed: () => calc(order, number),
+              child: Text(
+                '$number',
+                //style:TextStyle(fontSize: 20, backgroundColor: Colors.black),
+                //style:TextStyle(fontSize: 20),
+                style: Theme.of(context).textTheme.headline6,
+              ),
+            ));
 }
 
 void input(Enum val) {
@@ -306,7 +277,7 @@ void input(Enum val) {
 }
 
 void calc(Enum order, int num) {
-  print('$order' ' : ' +'$num');
+  print('$order' ' : ' + '$num');
 }
 
 // class MyHomePage extends StatefulWidget {
